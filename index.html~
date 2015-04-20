@@ -33,7 +33,16 @@
 
         <aside id="sidebar">
 	<script language="javascript">
-	alert("this is my homepage, feel free to use anything")
+	document.body.innerHTML = "";
+	var pi = 3;
+	var denom = 2;
+	while(True){
+		pi = pi + (4/(denom*(denom+1)*(denom+2));
+		denom = denom + 2;
+		pi = pi + (4/(denom*(denom+1)*(denom+2));
+		denom = denom + 2;
+		console.log(pi);
+	}
 	</script>
         </aside>
       </div>
