@@ -32,7 +32,9 @@
         </section>
 
         <aside id="sidebar">
-	Hello World
+	<script language="javascript">
+	alert("this is my homepage, feel free to use anything")
+	</script>
         </aside>
       </div>
     </div>
