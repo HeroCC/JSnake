@@ -5,9 +5,9 @@ html {
 }
 body h1{
   background: #2db34a;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #fff;
   display: block;
-  font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
   padding: 24px 15px;
-  text-align: center;
+  text-align: left;
+}
