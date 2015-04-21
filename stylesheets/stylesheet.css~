@@ -1,0 +1,5 @@
+html {
+	font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
+	color: red;
+	background-color: rgb(0, 153, 51);
+}
