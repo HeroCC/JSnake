@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-	<title>"Sebastian Monzon"</title>
-	<h1>Welcome to Sebastian's website!</h1>
-	<body>Download files that I use in projects, homework, etc.</body>
+	<body>
+		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+		<title>"Sebastian Monzon"</title>
+		<h1>Welcome to Sebastian's website!</h1>
+		<h2>Download files that I use in projects, homework, etc.</h2>
+	</body>
 </html>

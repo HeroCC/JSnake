@@ -3,3 +3,11 @@ html {
 	color: rgb(202, 203, 202);
 	background-color: rgb(0, 153, 51);
 }
+body h1{
+  background: #2db34a;
+  border-radius: 6px;
+  color: #fff;
+  display: block;
+  font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
+  padding: 24px 15px;
+  text-align: center;
