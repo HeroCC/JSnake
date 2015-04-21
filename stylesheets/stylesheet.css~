@@ -3,11 +3,27 @@ html {
 	color: rgb(202, 203, 202);
 	background-color: rgb(0, 153, 51);
 }
-body h1{
-  background: #2db34a;
-  border-radius: 8px;
-  color: #fff;
-  display: block;
-  padding: 24px 15px;
-  text-align: left;
+body ul li1{
+	background: #2db34a;
+	border-radius: 8px;
+	color: rgb(0,100,200);
+	display: block;
+	padding: 0px 0px;
+	text-align: left;
+}
+body ul li2{
+	border-top: 1px solid #EEE;
+     background: #666;
+     padding: 3.5px 7px;
+     -webkit-border-radius: 39px;
+     -moz-border-radius: 39px;
+     border-radius: 39px;
+     -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+     -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+     box-shadow: rgba(0,0,0,1) 0 1px 0;
+     color: white;
+     font-size: 15px;
+     font-family: verdana, serif;
+     text-decoration: none;
+     vertical-align: middle;
 }

@@ -5,8 +5,14 @@
 		<title>"Sebastian Monzon"
 		</title>
 		<h1>Welcome to Sebastian's website!
-		<a href="https://github.com/smonzon14" class="button">GitHub</a>
 		</h1>
-		<h2>Download files that I use in projects, homework, etc.</h2>
+		<ul>
+			<li>
+			<a href="https://github.com/smonzon14" class="button">GitHub</a>
+			</li>
+			<li2>
+			<a href="http://www.codecademy.com/smonzon_" class="button">Codecademy</a>
+			</li2>
+		</ul>
 	</body>
 </html>
