@@ -20,35 +20,79 @@ body {/*http://cdn.wonderfulengineering.com/wp-content/uploads/2013/06/engineeri
 }
 #follow {
 	line-height:bottom;
-    	background-color:rgba(100,100,200,0.2);
-    	height:cover;
+    	background-color:rgba(0,0,0,0.6);
+    	height:100px;
     	width:180px;
     	float:left;
     	padding:10px;
 	color: white;
 	font-size: 10;
-	margin-left: -15;	  
+	margin-left: -15;
+	margin-top: -200px;	  
 }
 #follow ul li1{
-	background-color: rgba(100,200,100,0.7);
-	font-size:30;
+	background-color: rgba(0,255,100,0.7);
 	padding: 5px;
+	position: fixed;
+	top: 100px;
+}
+#follow ul li1:hover{
+	background-color: rgba(0,255,100,1);
+	padding: 5px;
+	position: fixed;
+	top: 100px;
 }
 #follow ul li2{
-	font-size:20;
-	padding: 10px;
-	background-color: rgba(200,100,100,0.7);
-	margin-left: 20px;
+	padding: 5px;
+	background-color: rgba(255,100,0,0.7);
+	position: fixed;
+	top: 150px;
 }
+#follow ul li2:hover{
+	padding: 5px;
+	background-color: rgba(255,100,0,1);
+	position: fixed;
+}
+
 #mame {
-	background-color: rgba(100,100,100,0.7);
+	background-color: rgba(0,0,0,0.7);
 	padding: 30px;
 	margin-left: 200px;
 	margin-right: -15px;
 	text-align: left;
+}
+a:link {
+	color: rgba(0,0,0, 1);
 }	
+a:visited {
+	color: purple;
+}
+a:hover {
+	color: blue;
+}
 #mame ul {
-    	background-color:rgba(100,50,200,0.8);
+    	background-color:rgba(255,200,0,0.6);
 	padding: 10px;
 	margin-left: 10px;
+}
+#google{
+	text-align: center;
+	/*background-color: rgba(20, 30, 100, 0.8);*/
+	padding: 10px;
+	margin-left: 200px;
+	margin-right: 150px;
+}
+#logo {
+	background-color: rgba(0,0,0, 0.8);
+	padding: 10px;
+}
+#search {
+	text-align: center;
+	padding: 10px; 
+  	background-color: rgba(200,0,0, 0.8);  
+}
+#search:hover {
+	text-align: center;
+	padding: 10px; 
+  	background-color: rgba(200,0,0, 0.6);  
 }
