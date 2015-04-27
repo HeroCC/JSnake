@@ -22,7 +22,7 @@
 		
 <!--follow me on...-->
 		<div id="follow">
-			<h1><font size="2">follow me on...</font></h1>
+			<h1><font size="4">follow me on...</font></h1>
 			<ul>
 				<li1><a href="https://github.com/smonzon14" class="button"><img src="https://camo.githubusercontent.com/7318ebef474f99229892e6bf052f0117ca86f0e4/68747470733a2f2f6769746875622e676c6f62616c2e73736c2e666173746c792e6e65742f696d616765732f6d6f64756c65732f6c6f676f735f706167652f4769744875622d4c6f676f2e706e67" height="25"/></a></li1>
 				<li2><a href="http://www.codecademy.com/smonzon_" class="button"><img src="images/codecademy.png" height="25"/></a></li2>
