@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		
+		<background>
 		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
 		<title>"Sebastian Monzon"</title>
 <!--header-->
@@ -15,7 +15,7 @@
 		</div>
 		<div id="search">
 			<form method="get" action="https://www.google.com/search">
-			<input type="text" name="q" value="">
+			<input type="text" name="q" size="40" value="">
 			</form>
 		</div>
 		</div>
@@ -38,6 +38,7 @@
 				<li><a href="downloads/galaxian.zip" download>galaxian</a></li>
 			</ul>		
 		</div>
+		</background>
 
 	</body>
 </html>

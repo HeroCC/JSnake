@@ -3,15 +3,14 @@ html {
 	color: rgb(202, 203, 202);
 }
 body {/*http://cdn.wonderfulengineering.com/wp-content/uploads/2013/06/engineering-wallpaper-hd.jpg*/
-    background: url("http://nexus-wallpaper.com/wp-content/uploads/2013/05/circuit-board-wallpaper.jpg") no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    	background: url("http://nexus-wallpaper.com/wp-content/uploads/2013/05/circuit-board-wallpaper.jpg") no-repeat fixed;
+    	-webkit-background-size: cover;
+    	-moz-background-size: cover;
+    	-o-background-size: cover;
+    	background-size: cover;
 }
 #header {
     	background-color:rgba(0,0,0,0.75);
-    	color:white;
     	text-align:center;
     	padding:5px;
 	margin-left: -20;
@@ -85,6 +84,7 @@ a:hover {
 	padding: 10px;
 	margin-left: 200px;
 	margin-right: 150px;
+	
 }
 #logo {
 	background-color: rgba(0,0,0, 0.8);
