@@ -10,7 +10,7 @@ html {
 	/*font-family: "Courier New", Courier, monospace;*/
 }
 body {
-    	background: url("http://hdwallpapersfit.com/wp-content/uploads/2015/04/awesome-pc-hd-backgrounds.jpg")fixed no-repeat;
+    	background: url("http://m.ephotobay.com/image/google-logo-flat-black.png")fixed no-repeat;
 	-webkit-background-size: cover;
     	-moz-background-size: cover;
     	-o-background-size: cover;
@@ -22,13 +22,13 @@ body {
 	box-shadow: -24px 67px 300px 31px rgba(0,0,0,0.9);
 	position: fixed;
 	top: 0px;
+	z-index: 1;
 	left: 0px;
 }
 #google{
 	background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
 	padding: 20px;
 	padding-top: 150px;
-	
 	text-align: center;
 	margin: -8px;
 }
@@ -40,7 +40,7 @@ body {
 	background-color: rgba(0,255,0,0.2);
 	font-size: 40px;
 	padding: 10px;
-	min-width: 600px;
+	min-width: 400px;
 	max-width: 800px;
 	border-radius: 4px;
 }
