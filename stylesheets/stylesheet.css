@@ -10,14 +10,13 @@ html {
 	/*font-family: "Courier New", Courier, monospace;*/
 }
 body {
-    	background: url("http://www.hdwallpapers-3d.com/wp-content/uploads/2014/09/cool-wallpapers-hd-wallpaper-9.jpg")fixed no-repeat;
+    	background: url("http://www.morioneswallpaper.com/static/images/Download-Cool-Backgrounds-HD-Wallpaper-1080x607_iks5ie1.jpg")fixed no-repeat;
 	-webkit-background-size: cover;
     	-moz-background-size: cover;
     	-o-background-size: cover;
     	background-size: cover;
 }
 #img_topleft {
-	outline: black solid 2px;
 	background-color: rgba(150,150,150,0.4);
 	padding-bottom: 5px;
 	-webkit-box-shadow: -24px 67px 300px 31px rgba(0,0,0,0.9);
@@ -29,17 +28,17 @@ body {
 	left: 0px;
 }
 #google{
-	background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0));
 	padding: 20px;
-	padding-top: 150px;
+	padding-top: 20%;
+	height: 20%;
 	text-align: center;
 	margin: -8px;
 }
 #logo {
-	outline: black solid 2px;
-	-webkit-box-shadow: -24px 67px 300px 31px rgba(0,0,0,0.63);
-	-moz-box-shadow: -24px 67px 300px 31px rgba(0,0,0,0.63);
-	box-shadow: -24px 67px 300px 31px rgba(0,0,0,0.63);
+	-webkit-box-shadow: 0px 0px 40px 20px rgba(200,200,200,0.6);
+	-moz-box-shadow: 0px 0px 40px 20px rgba(200,200,200,0.6);
+	box-shadow: 0px 0px 40px 20px rgba(200,200,200,0.6);
 	margin-bottom: -5px;
 	background-color: rgba(255,255,255,0.2);
 	font-size: 40px;
@@ -53,63 +52,67 @@ a:link,:visited,:hover,:active {
 	color: black;
 }
 #buttons {
-
-	background-color: rgba(150,150,150,0.4);
+	
 	position: fixed;
 	padding-bottom: 5px;
 	top: -30px;
 	left: 120px;
 }
 .links { 
+	color: rgba(20,20,20,0.5);
+	display: inline-block;
 	z-index: 1;
 	padding-top: 40px;
    	padding-right: 20px;
     	padding-left: 20px;
 	padding-bottom: 10px;
-	-webkit-transition: .5s ease-in-out;
-    	-moz-transition: .5s ease-in-out;
-    	-o-transition: .5s ease-in-out;
-    	transition: .5s ease-in-out;
+	-webkit-transition: .3s ease-in-out;
+    	-moz-transition: .3s ease-in-out;
+    	-o-transition: .3s ease-in-out;
+    	transition: .3s ease-in-out;
 }
 #aspen {
-	display: inline-block;
-	background-color: rgba(255,10,0, 0.5);
+	background-color: rgba(255,10,0, 0.6);
 }
 #github {
-	display: inline-block;
-	background-color: rgba(70,140,150, 0.5);
+	background-color: rgba(70,140,150, 0.6);
 }
 #pandora {
-	display: inline-block;
-	background-color: rgba(0,60,255, 0.5);
+	background-color: rgba(0,60,255, 0.6);
 }
 #ixl {
-	display: inline-block;
-	background-color: rgba(200,200,0, 0.5);
+	background-color: rgba(200,200,0, 0.6);
+}
+#gmail {
+	background-color: rgba(255,100,100, 0.6);
 }
 .links:hover{
-	-webkit-box-shadow: 0px 67px 300px 31px rgba(255,255,255,1);
-	-moz-box-shadow: 0px 67px 300px 31px rgba(255,255,255,1);
-	box-shadow: 0px -100px 300px 31px rgba(255,255,255,1);
+	color: rgb(0,0,0);
+	-webkit-box-shadow: 0px -100px 300px 31px rgba(255,255,255,0.5);
+	-moz-box-shadow: 0px -100px 300px 31px rgba(255,255,255,0.5);
+	box-shadow: 0px -100px 300px 31px rgba(255,255,255,0.5);
 	z-index: 0;
-	-webkit-transform: translate(0,1em);
-    	-moz-transform: translate(0,1em);
-    	-o-transform: translate(0,1em);
-    	-ms-transform: translate(0,1em);
-    	transform: translate(0,1em);
+	-webkit-transform: translate(0,0.5em);
+    	-moz-transform: translate(0,0.5em);
+    	-o-transform: translate(0,0.5em);
+    	-ms-transform: translate(0,0.5em);
+    	transform: translate(0,0.5em);
 	
 }
 #search {
 	  min-width: 800px;
 }
 #text {
-	border: solid rgba(100,100,100, 0.5);
-	box-shadow: inset 0 0 3px 3px rgba(255,255,255,0.3);
-	border-radius: 2px;
-	background-color: rgba(255,255,255, 0.2);
+	border: none;
+	font-family: CaviarDreams;
+	text-align: center;
+	border-radius: 10px;
+	background-color: rgba(255,255,255, 0.1);
 	font-size: 20px;
 	color: black;
+	-webkit-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.5);
+	box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.5);
 }
-#text:hover {
-	border: solid rgb(0, 38, 57);
+
 
