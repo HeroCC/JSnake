@@ -1,25 +1,55 @@
-<!DOCTYPE html>
-<html>
-	<body>
-		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-		<title>Sebastian Monzon</title>
-		<div id="buttons">
-			<a class="links" id="aspen"href="https://ma-melrose.myfollett.com/aspen/logon.do" target=_blank>Aspen</a><a class="links" id="pandora"href="http://www.pandora.com/" target=_blank>Pandora</a><a class="links" id="github"href="https://github.com/" target=_blank>Github</a><a class="links" id="ixl"href="https://www.ixl.com/math/algebra-1" target=_blank>Ixl</a><a class="links" id="gmail"href="https://mail.google.com/mail/u/0/#inbox" target=_blank>Gmail</a>
-		</div>
-		<div id="profimg">
-			<img src="images/seb.png"height="200"/>
-		</div>
-		<!--google search-->
-		<div id="google">
-			<img id="logo"src="images/google_logo_flat_black.png"border="0" alt=""/>
-			<div id="search">
-				<form method="get" action="https://www.google.com/search">
-				<input id="text" type="text" name="q" value="" size="60">
-				</form>
-			</div>
-		</div>
-		<noscript>
-  		<p>Turn on Javascript</p>
-		</noscript>
-	</body>
+<!DOCTYPE html> 
+<html manifest="snake.appcache">
+<head>
+<!--
+
+JavaScript Snake
+By Patrick Gillespie
+http://patorjk.com/games/snake
+
+Soure code is available here: https://github.com/patorjk/JavaScript-Snake
+
+--> 
+    <title>JavaScript Snake</title>
+    <link rel="stylesheet" type="text/css" href="./css/snake.css" />
+    
+<script type="text/javascript">
+if (navigator.onLine && window.location.hostname === 'patorjk.com') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3312460-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+}
+</script>
+</head>
+<body>
+    <div id="game-area" tabindex="0">
+    </div>
+    
+    <div class="snake-try-again-dialog">
+
+    </div>
+    <script type="text/javascript" src="./js/snake.js"></script>
+    <script type="text/javascript">
+    var mySnakeBoard = new SNAKE.Board(  {
+                                            boardContainer: "game-area",
+                                            fullScreen: true
+                                        });    
+    </script>
+
+<!--/* Ad4Game Interstitial or Floating DHTML Tag */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var ox_u = '//ads.ad4game.com/www/delivery/al.php?zoneid=51038&amp;layerstyle=footer&amp;position=bottom&amp;speed=3&amp;slide=0&amp;delay=-&amp;transparent=0';
+   if (document.context) ox_u += '&context=' + escape(document.context);
+   document.write("<scr"+"ipt type='text/javascript' src='" + ox_u + "'></scr"+"ipt>");
+//]]>--></script>
+
+
+</body>
 </html>
