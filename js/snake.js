@@ -603,7 +603,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "<div>made by patorjk, edited by smonzon14 </div> - <a href='https://github.com/smonzon14/smonzon14.github.io' class='snake-link'>source code</a>";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -684,7 +684,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.className = "snake-try-again-dialog";
             
             var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :(.<p></p>";
+            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :).<p></p>";
             var tryAgainStart = document.createElement("button");
             tryAgainStart.appendChild( document.createTextNode("Play Again?"));
             
