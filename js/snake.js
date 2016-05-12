@@ -111,7 +111,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         if (!config||!config.playingBoard) {return;}
     
         // ----- private variables -----
-
+        
         var me = this,
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
@@ -125,6 +125,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
+        
         
         // ----- public variables -----
 
