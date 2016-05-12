@@ -122,7 +122,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
             yPosShift = [],
-            snakeSpeed = 65,
+            snakeSpeed = 35,
             isDead = false,
             isPaused = false;
         
@@ -818,7 +818,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 cLeft = 0;
                 cWidth = getClientWidth()-5;
                 cHeight = getClientHeight()-5;
-                document.body.style.backgroundColor = "#FC5454";
+                document.body.style.backgroundColor = "#808080";
             } else {
                 cTop = config.top;
                 cLeft = config.left;
