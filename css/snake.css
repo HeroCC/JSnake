@@ -7,14 +7,24 @@ body {
 	margin:0px;
 	padding:0px;
 }
-
 #game-area {
 	margin:0px;
 	padding:0px;
 }
 
 #game-area:focus { outline: none; }
-
+.button0{
+    color: blue;
+}
+.button1 {
+    color: red;
+}
+.button2 {
+    color: green;
+}
+.button3 {
+    color: mediumpurple;
+}
 a.snake-link, a.snake-link:link, a.snake-link:visited {
   color: #FCFC54; 
 }
@@ -53,7 +63,7 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #00ffff;
+    background-color: #ff0000;
     position: absolute;
     border: 0px solid #00aaaa;
     background-repeat: no-repeat;
@@ -70,7 +80,7 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     background-color: #808080;
-    border: 2px solid #0094ff;
+    border: 2px solid #FfFf54;
     position: absolute;
 }
 

@@ -10,7 +10,12 @@ http://patorjk.com/games/snake
 */
 
 var SNAKE = SNAKE || {};
-
+var snakeSpeed = 75,
+    growthIncr = 5;
+function chngVar(newSpeed, newGrowth) {
+    snakeSpeed = newSpeed;
+    growthIncr = newGrowth;
+}
 /**
 * @method addEventListener
 * @param {Object} obj The object to add an event listener to.
@@ -106,6 +111,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             startRow - The row the snake should start on.
             startCol - The column the snake should start on.
     */
+    
     return function(config) {
     
         if (!config||!config.playingBoard) {return;}
@@ -115,17 +121,14 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         var me = this,
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
-            growthIncr = 10,
             moveQueue = [], // a queue that holds the next moves of the snake
             currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
             yPosShift = [],
-            snakeSpeed = 35,
             isDead = false,
             isPaused = false;
-        
         
         // ----- public variables -----
 
@@ -510,7 +513,6 @@ SNAKE.Board = SNAKE.Board || (function() {
     // -------------------------------------------------------------------------
 
     var instanceNumber = 0;
-
     // this function is adapted from the example at http://greengeckodesign.com/blog/2007/07/get-highest-z-index-in-javascript.html
     function getNextHighestZIndex(myObj) {
         var highestIndex = 0,
@@ -562,8 +564,8 @@ SNAKE.Board = SNAKE.Board || (function() {
     // Contructor + public and private definitions
     // -------------------------------------------------------------------------
     
-    return function(inputConfig) {
-    
+    return function (inputConfig) {
+        
         // --- private variables ---
         var me = this,
             myId = instanceNumber++,
