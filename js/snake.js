@@ -14,7 +14,7 @@ var snakeSpeed = 75,
     growthIncr = 5;
 function chngVar(newSpeed, newGrowth) {
     snakeSpeed = newSpeed;
-    growthIncr = newGrowth;
+    growthIncr = newGrowth; 
 }
 /**
 * @method addEventListener
@@ -127,10 +127,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
             yPosShift = [],
-<<<<<<< HEAD
-=======
-            snakeSpeed = 45,
->>>>>>> origin/master
             isDead = false,
             isPaused = false;
         
