@@ -1,8 +1,3 @@
-/*
-JavaScript Snake
-By Patrick Gillespie
-http://patorjk.com/games/snake
-*/
 
 /**
 * @module Snake
@@ -10,11 +5,49 @@ http://patorjk.com/games/snake
 */
 
 var SNAKE = SNAKE || {};
+
 var snakeSpeed = 75,
     growthIncr = 5;
+document.getElementById("button0").style.color = "black";
 function chngVar(newSpeed, newGrowth) {
     snakeSpeed = newSpeed;
     growthIncr = newGrowth; 
+}
+
+function changeMode(mode) {
+    
+    if (mode == "regular") {
+        snakeSpeed = 75;
+        growthIncr = 5;
+        document.getElementById("button0").style.color = "black";
+        document.getElementById("button1").style.color = "white";
+        document.getElementById("button2").style.color = "white";
+        document.getElementById("button3").style.color = "white";
+    }
+    if (mode == "fast") {
+        snakeSpeed = 45;
+        growthIncr = 10;
+        document.getElementById("button0").style.color = "white";
+        document.getElementById("button1").style.color = "black";
+        document.getElementById("button2").style.color = "white";
+        document.getElementById("button3").style.color = "white";
+    }
+    if (mode == "long") {
+        snakeSpeed = 75;
+        growthIncr = 100;
+        document.getElementById("button0").style.color = "white";
+        document.getElementById("button1").style.color = "white";
+        document.getElementById("button2").style.color = "black";
+        document.getElementById("button3").style.color = "white";
+    }
+    if (mode == "insane") {
+        snakeSpeed = 45;
+        growthIncr = 100;
+        document.getElementById("button0").style.color = "white";
+        document.getElementById("button1").style.color = "white";
+        document.getElementById("button2").style.color = "white";
+        document.getElementById("button3").style.color = "black";
+    }
 }
 /**
 * @method addEventListener
@@ -605,7 +638,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a>made by patorjk, edited by smonzon14 </a> - <a href='https://github.com/smonzon14/smonzon14.github.io' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "<a>made by patorjk, edited by Sebastian M </a> - <a href='https://github.com/smonzon14/smonzon14.github.io' class='snake-link'>source code</a> - <a href='http://patorjk.com/games/snake/' class='snake-link'>original game</a>";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";

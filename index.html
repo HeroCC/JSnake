@@ -1,15 +1,7 @@
 <!DOCTYPE html> 
 <html manifest="snake.appcache">
 <head>
-<!--
 
-JavaScript Snake
-By Patrick Gillespie
-http://patorjk.com/games/snake
-
-Soure code is available here: https://github.com/patorjk/JavaScript-Snake
-
---> 
     <title>JavaScript Snake</title>
     <link rel="stylesheet" type="text/css" href="./css/snake.css" />
      
@@ -20,12 +12,14 @@ Soure code is available here: https://github.com/patorjk/JavaScript-Snake
 <body>
     <div id="game-area" tabindex="0">
         <div class="toggle-button">
-            <button class="button0" onClick="chngVar(75,5)">Regular</button>
-            <button class="button1" onClick="chngVar(45,10)">Faster</button>
-            <button class="button2" onClick="chngVar(75,100)">Long</button>
-            <button class="button3" onClick="chngVar(45,100)">Insane</button>
+            <button class="mode-button" id="button0" onClick="changeMode('regular')">Regular</button>
+            <button class="mode-button" id="button1" onClick="changeMode('fast')">Fast</button>
+            <button class="mode-button" id="button2" onClick="changeMode('long')">Long</button>
+            <button class="mode-button" id="button3" onClick="changeMode('insane')">Insane</button>
         </div>
-        
+        <script type="text/javascript">
+
+        </script>
     </div>
     
     <div class="snake-try-again-dialog">
