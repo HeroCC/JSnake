@@ -5,10 +5,34 @@
 */
 
 var SNAKE = SNAKE || {};
-
+var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
+
 document.getElementById("button0").style.color = "black";
+function changeSnakeColor(color) {
+    if (color == 'yellow') {
+        snake_color = " snake-yellow-alive";
+    }
+    if (color == 'red') {
+        snake_color = " snake-red-alive";
+    }
+    if (color == 'green') {
+        snake_color = " snake-green-alive";
+    }
+    if (color == 'blue') {
+        snake_color = " snake-blue-alive";
+    }
+    if (color == 'purple') {
+        snake_color = " snake-purple-alive";
+    }
+    var body = document.getElementsByClassName("snake-snakebody-block");
+    for (var i = 0; i < body.length; i++) {
+        if (body[i].className.search("dead") == -1) {
+            body[i].className = " snake-snakebody-block" + snake_color;
+        }
+    }
+}
 function chngVar(newSpeed, newGrowth) {
     snakeSpeed = newSpeed;
     growthIncr = newGrowth; 
@@ -23,6 +47,7 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "white";
+        changeSnakeColor('yellow');
     }
     if (mode == "fast") {
         snakeSpeed = 45;
@@ -31,6 +56,7 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "black";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "white";
+        changeSnakeColor('red');
     }
     if (mode == "long") {
         snakeSpeed = 75;
@@ -39,6 +65,7 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "black";
         document.getElementById("button3").style.color = "white";
+        changeSnakeColor('green');
     }
     if (mode == "insane") {
         snakeSpeed = 45;
@@ -47,6 +74,7 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "black";
+        changeSnakeColor('purple');
     }
 }
 /**
@@ -183,7 +211,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.snakeHead = me.snakeBody["b0"];
         me.snakeTail = me.snakeBody["b0"];
         me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
-        me.snakeHead.elm.className += " snake-snakebody-alive";
+        me.snakeHead.elm.className += snake_color;
         
         // ----- private methods -----
         
@@ -345,7 +373,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 me.snakeBody[index] = blocks[ii];
                 me.snakeBody[index].prev = prevNode;
                 me.snakeBody[index].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-                me.snakeBody[index].elm.className += " snake-snakebody-alive";
+                me.snakeBody[index].elm.className += snake_color;
                 prevNode.next = me.snakeBody[index];
                 prevNode = me.snakeBody[index];
             }
@@ -404,12 +432,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 blocks[ii].elm.style.left = "-1000px";
                 blocks[ii].elm.style.top = "-1000px";
                 blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-                blocks[ii].elm.className += " snake-snakebody-alive";
+                blocks[ii].elm.className += snake_color;
             }
             
             blockPool.concat(blocks);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-            me.snakeHead.elm.className += " snake-snakebody-alive";
+            me.snakeHead.elm.className += snake_color;
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
             me.snakeHead.xPos = me.snakeHead.row * playingBoard.getBlockWidth();
