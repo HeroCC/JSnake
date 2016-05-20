@@ -9,7 +9,7 @@ var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
 
-document.getElementById("button0").style.color = "black";
+changeMode("regular")
 function changeSnakeColor(color) {
     if (color == 'yellow') {
         snake_color = " snake-yellow-alive";
@@ -47,6 +47,10 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "white";
+        document.getElementById("button0").style.background = "yellow";
+        document.getElementById("button1").style.background = "";
+        document.getElementById("button2").style.background = "";
+        document.getElementById("button3").style.background = "";
         changeSnakeColor('yellow');
     }
     if (mode == "fast") {
@@ -56,6 +60,10 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "black";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "white";
+        document.getElementById("button0").style.background = "";
+        document.getElementById("button1").style.background = "red";
+        document.getElementById("button2").style.background = "";
+        document.getElementById("button3").style.background = "";
         changeSnakeColor('red');
     }
     if (mode == "long") {
@@ -65,6 +73,10 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "black";
         document.getElementById("button3").style.color = "white";
+        document.getElementById("button0").style.background = "";
+        document.getElementById("button1").style.background = "";
+        document.getElementById("button2").style.background = "#3ece01";
+        document.getElementById("button3").style.background = "";
         changeSnakeColor('green');
     }
     if (mode == "insane") {
@@ -74,6 +86,10 @@ function changeMode(mode) {
         document.getElementById("button1").style.color = "white";
         document.getElementById("button2").style.color = "white";
         document.getElementById("button3").style.color = "black";
+        document.getElementById("button0").style.background = "";
+        document.getElementById("button1").style.background = "";
+        document.getElementById("button2").style.background = "";
+        document.getElementById("button3").style.background = "#b200ff";
         changeSnakeColor('purple');
     }
 }

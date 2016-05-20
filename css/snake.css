@@ -7,34 +7,36 @@ body {
 	margin:0px;
 	padding:0px;
 }
+
 .mode-button {
-    
-	border:1px solid black;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:12px;
-	padding:3px 5px;
-	text-decoration:none;
+    background: grey;
+    border: 0px solid black;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    font-family: Arial;
+    float: left;
+    font-size: 14px;
+    padding: 2px 12.5%;
+    width: 10px;
+    text-decoration: none;
     transition: all 0.3s ease 0s;
 }
 #game-area:focus { outline: none; }
-#button0{
-    background: blue;
+#button0:hover, #button0:focus {
+    background: yellow;
 }
-#button1 {
+#button1:hover, #button1:focus {
     background: red;
 }
-#button2 {
-    background: green;
+#button2:hover, #button2:focus {
+    background: #3ece01;
 }
-#button3 {
-    background: mediumpurple;
+#button3:hover, #button3:focus {
+    background: #b200ff;
 }
-.mode-button:hover{
-    color: black;
-}
+
+
 a.snake-link, a.snake-link:link, a.snake-link:visited {
   color: #FCFC54; 
 }
