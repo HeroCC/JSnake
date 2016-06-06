@@ -682,7 +682,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a>made by patorjk, edited by Sebastian M </a> - <a href='https://github.com/smonzon14/smonzon14.github.io' class='snake-link'>source code</a> - <a href='http://patorjk.com/games/snake/' class='snake-link'>original game</a>";
+            elmAboutPanel.innerHTML = "<a>made by Sebastian M, original by patorjk </a> - <a href='https://github.com/smonzon14/smonzon14.github.io' class='snake-link'>source code</a> - <a href='http://patorjk.com/games/snake/' class='snake-link'>original game</a>";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
