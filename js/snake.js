@@ -12,21 +12,8 @@ var snakeSpeed = 75,
 changeMode("regular")
 
 function changeSnakeColor(color) {
-    if (color == 'yellow') {
-        snake_color = " snake-yellow-alive";
-    }
-    if (color == 'red') {
-        snake_color = " snake-red-alive";
-    }
-    if (color == 'green') {
-        snake_color = " snake-green-alive";
-    }
-    if (color == 'blue') {
-        snake_color = " snake-blue-alive";
-    }
-    if (color == 'purple') {
-        snake_color = " snake-purple-alive";
-    }
+    snake_color = " snake-" + color + "-alive";
+    
     var body = document.getElementsByClassName("snake-snakebody-block");
     for (var i = 0; i < body.length; i++) {
         if (body[i].className.search("dead") == -1) {
@@ -39,59 +26,22 @@ function chngVar(newSpeed, newGrowth) {
     growthIncr = newGrowth; 
 }
 
-function changeMode(mode) {
-    
-    if (mode == "regular") {
-        snakeSpeed = 75;
-        growthIncr = 5;
-        document.getElementById("button0").style.color = "black";
-        document.getElementById("button1").style.color = "white";
-        document.getElementById("button2").style.color = "white";
-        document.getElementById("button3").style.color = "white";
-        document.getElementById("button0").style.background = "yellow";
-        document.getElementById("button1").style.background = "";
-        document.getElementById("button2").style.background = "";
-        document.getElementById("button3").style.background = "";
-        changeSnakeColor('yellow');
-    }
-    if (mode == "fast") {
-        snakeSpeed = 45;
-        growthIncr = 10;
-        document.getElementById("button0").style.color = "white";
-        document.getElementById("button1").style.color = "black";
-        document.getElementById("button2").style.color = "white";
-        document.getElementById("button3").style.color = "white";
-        document.getElementById("button0").style.background = "";
-        document.getElementById("button1").style.background = "red";
-        document.getElementById("button2").style.background = "";
-        document.getElementById("button3").style.background = "";
-        changeSnakeColor('red');
-    }
-    if (mode == "long") {
-        snakeSpeed = 75;
-        growthIncr = 100;
-        document.getElementById("button0").style.color = "white";
-        document.getElementById("button1").style.color = "white";
-        document.getElementById("button2").style.color = "black";
-        document.getElementById("button3").style.color = "white";
-        document.getElementById("button0").style.background = "";
-        document.getElementById("button1").style.background = "";
-        document.getElementById("button2").style.background = "#3ece01";
-        document.getElementById("button3").style.background = "";
-        changeSnakeColor('green');
-    }
-    if (mode == "insane") {
-        snakeSpeed = 45;
-        growthIncr = 100;
-        document.getElementById("button0").style.color = "white";
-        document.getElementById("button1").style.color = "white";
-        document.getElementById("button2").style.color = "white";
-        document.getElementById("button3").style.color = "black";
-        document.getElementById("button0").style.background = "";
-        document.getElementById("button1").style.background = "";
-        document.getElementById("button2").style.background = "";
-        document.getElementById("button3").style.background = "#b200ff";
-        changeSnakeColor('purple');
+function changeMode(button, color) {
+    buttonList = ["button0", "button1", "button2", "button3"]
+    for (var x = 0; x < buttonList.length; x++) {
+        if (buttonList[x] == button) {
+            changeSnakeColor(color)
+            if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100;//insane
+            if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100;//long
+            if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
+            if (color == "red") snakeSpeed = 45, growthIncr = 10;//fast
+            document.getElementById(button).style.color = "black";
+            document.getElementById(button).style.background = color;
+        }
+        else {
+            document.getElementById(buttonList[x]).style.color = "white";
+            document.getElementById(buttonList[x]).style.background = "";
+        }
     }
 }
 /**
