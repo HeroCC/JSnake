@@ -8,19 +8,30 @@ body {
 	padding:0px;
 }
 
+.JSSTitle{
+    transition: all 1s ease 0s;
+    color: white;
+}
+/*#JSSWelcomeTitle{
+    position: absolute;
+    left: -555px;
+    transition: all 1s ease 0s;
+    color: white;
+}*/
 .mode-button {
+    border: hidden;
     background: grey;
-    border: 0px solid black;
     display: inline-block;
     cursor: pointer;
     color: white;
     font-family: Arial;
     float: left;
     font-size: 14px;
-    padding: 2px 12.5%;
+    padding: 2px 12.43%;
+    text-align: left;
     width: 10px;
     text-decoration: none;
-    transition: all 0.3s ease 0s;
+    transition: all .5s ease 0s;
 }
 #game-area:focus { outline: none; }
 #button0:hover, #button0:focus {
@@ -37,7 +48,7 @@ body {
 }
 #tryAgainButton{
     cursor: pointer;
-    transition: all 0.2s ease 0s;
+    transition: all 1s ease 0s;
     padding: 2px 3%;
     background: yellow;
     border: 0px solid black;
@@ -49,8 +60,9 @@ body {
 }
 #tryAgainButton:hover{
     transition: all 0.2s ease 0s;
-    max-width: 100%;
+    max-width: 150%;
     padding: 2px 48%;
+    padding-right: 47%;
     background: yellow;
     border: 0px solid black;
     white-space: nowrap;
@@ -58,7 +70,7 @@ body {
 }
 #welcomeButton{
     cursor: pointer;
-    transition: all 0.2s ease 0s;
+    transition: all 1s ease 0s;
     padding: 2px 5%;
     background: yellow;
     border: 0px solid black;
@@ -70,12 +82,13 @@ body {
 
 #welcomeButton:hover{
     transition: all 0.2s ease 0s;
-    max-width: 100%;
+    max-width: 150%;
     padding: 2px 49.99%;
+    padding-right: 47%;
     background: yellow;
     border: 0px solid black;
     white-space: nowrap;
-    position:absolute; left:0%; top:100%;
+    position:absolute; left:0; top:100%;
 }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
@@ -113,6 +126,7 @@ a.snake-link:hover {
     margin: 0px;
 }
 .snake-snakebody-block {
+    
     margin: 0px;
     padding: 0px;
     background-color: #ff0000;
@@ -142,6 +156,7 @@ a.snake-link:hover {
 }
 
 .snake-food-block {
+    transition: all .1s ease 0s;
     margin: 0px;
     padding: 0px;
     background-color: #808080;
@@ -195,6 +210,7 @@ a.snake-link:hover {
     font-size: 14px;
     position: absolute;
     top: 50%;
+    transition: all 1s ease 0s;
     left: 178px;
     right: 40px;
     width: initial;

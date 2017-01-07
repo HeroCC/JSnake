@@ -9,7 +9,7 @@ var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
 var deathlength = 1;
-changeMode("regular")
+
 
 function changeSnakeColor(color) {
     snake_color = " snake-" + color + "-alive";
@@ -29,6 +29,7 @@ function chngVar(newSpeed, newGrowth) {
 function changeMode(button, color) {
     buttonList = ["button0", "button1", "button2", "button3"]
     for (var x = 0; x < buttonList.length; x++) {
+        
         if (buttonList[x] == button) {
             changeSnakeColor(color)
             if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100;//insane
@@ -36,6 +37,13 @@ function changeMode(button, color) {
             if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
             if (color == "red") snakeSpeed = 45, growthIncr = 10;//fast
             document.getElementById(button).style.color = "black";
+            document.getElementById(button).style.textShadow = "0px 0px black";
+            
+            var titles = document.getElementsByClassName("JSSTitle"), i, len;
+
+            for (i = 0, len = titles.length; i < len; i++) {
+                titles[i].style.color = color;
+            }
             document.getElementById(button).style.background = color;
             document.getElementById("tryAgainButton").style.background = color;
             document.getElementById("welcomeButton").style.background = color;
@@ -47,7 +55,8 @@ function changeMode(button, color) {
             }
         }
         else {
-            document.getElementById(buttonList[x]).style.color = "white";
+            document.getElementById(buttonList[x]).style.color = "black";
+            document.getElementById(buttonList[x]).style.textShadow = "0px 0px 20px " + color;
             document.getElementById(buttonList[x]).style.background = "";
         }
     }
@@ -672,6 +681,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             myFood = new SNAKE.Food({playingBoard: me});
             
             elmWelcome.style.zIndex = 1000;
+            changeMode("button0", "yellow");
         }
         function maxBoardWidth() {
             return MAX_BOARD_COLS * me.getBlockWidth();   
@@ -690,7 +700,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (config.fullScreen) {
                 fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>Use the <font color='#ffffff'><strong>arrow keys</strong></font> or <font color='#ffffff'><strong>WASD</strong></font> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "<div id='JSSWelcomeTitle' class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>Use the <font color='#ffffff'><strong>arrow keys</strong></font> or <font color='#ffffff'><strong>WASD</strong></font> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.id = "welcomeButton"
             welcomeStart.innerHTML ="<strong>PLAY</strong>"
@@ -725,7 +735,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             var tryAgainTxt = document.createElement("div");
             tryAgainTxt.id = "sbTryAgainMessage";
-            tryAgainTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: " + score + "<p></p>";
+            tryAgainTxt.innerHTML = "<div><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: <div class='JSSTitle'>" + score + "</div><p></p>";
             
             var tryAgainStart = document.createElement("button");
             tryAgainStart.id = "tryAgainButton";
@@ -888,13 +898,15 @@ SNAKE.Board = SNAKE.Board || (function() {
             // assuming height of 14 (font size) + 8 (padding)
             var bottomPanelHeight = hEdgeSpace - me.getBlockHeight();
             var pLabelTop = me.getBlockHeight() + fHeight + Math.round((bottomPanelHeight - 30)/2) + "px";
-            
-            elmAboutPanel.style.top = pLabelTop;
+            elmAboutPanel.style.bottom = "-5px";
+            //elmAboutPanel.style.top = pLabelTop;
             elmAboutPanel.style.width = "450px";
             elmAboutPanel.style.left = Math.round(cWidth/2) - Math.round(450/2) + "px";
             
-            elmLengthPanel.style.top = pLabelTop;
+            elmLengthPanel.style.bottom = "-5px";
             elmLengthPanel.style.left = cWidth - 120 + "px";
+            //elmLengthPanel.style.top = pLabelTop;
+            //elmLengthPanel.style.left = cWidth - 120 + "px";
             
             // if width is too narrow, hide the about panel
             if (cWidth < 700) {
@@ -980,13 +992,15 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method handleDeath
         */ 
         me.handleDeath = function () {
-            document.getElementById("sbTryAgainMessage").innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: " + mySnake.snakeLength + "<p></p>";
-            var index = Math.max(getNextHighestZIndex( mySnake.snakeBody), getNextHighestZIndex( {tmp:{elm:myFood.getFoodElement()}} ));
+            document.getElementById("sbTryAgainMessage").innerHTML = "<div><div class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div></div><p></p>You died :) Score: <font size='3px'><strong>" + mySnake.snakeLength + "</strong></font><p></p>";
+            
+            var index = Math.max(getNextHighestZIndex(mySnake.snakeBody), getNextHighestZIndex({ tmp: { elm: myFood.getFoodElement() } }));
             elmContainer.removeChild(elmTryAgain);
             elmContainer.appendChild(elmTryAgain);
             elmTryAgain.style.zIndex = index;
             elmTryAgain.style.display = "block";
             me.setBoardState(0);
+            
         };
         
         // ---------------------------------------------------------------------
