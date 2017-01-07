@@ -971,9 +971,6 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.foodEaten = function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
-            if (mySnake.snakeLength > 800) {
-                document.getElementById("playingField").style.backgroundImage = "url('http://vignette2.wikia.nocookie.net/someordinarygamers/images/c/cc/Spongebob-funny-pictures.jpg/revision/latest?cb=20140520211423')"
-            }
         };
         
         /**
