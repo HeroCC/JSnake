@@ -8,7 +8,7 @@ var SNAKE = SNAKE || {};
 var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
-
+var deathlength = 1;
 changeMode("regular")
 
 function changeSnakeColor(color) {
@@ -648,7 +648,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmLengthPanel.innerHTML = "Length: 1";
             
             elmWelcome = createWelcomeElement();
-            elmTryAgain = createTryAgainElement();
+            elmTryAgain = createTryAgainElement(1);
             
             SNAKE.addEventListener( elmContainer, "keyup", function(evt) {
                 if (!evt) var evt = window.event;
@@ -718,13 +718,15 @@ SNAKE.Board = SNAKE.Board || (function() {
             return tmpElm;
         }
         
-        function createTryAgainElement() {
+        function createTryAgainElement(score) {
             var tmpElm = document.createElement("div");
             tmpElm.id = "sbTryAgain" + myId;
             tmpElm.className = "snake-try-again-dialog";
             
             var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:)</strong></font><p></p>";
+            tryAgainTxt.id = "sbTryAgainMessage";
+            tryAgainTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: " + score + "<p></p>";
+            
             var tryAgainStart = document.createElement("button");
             tryAgainStart.id = "tryAgainButton";
             tryAgainStart.innerHTML = "<strong>PLAY AGAIN</strong>"
@@ -968,7 +970,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         * This method is called when the snake has eaten some food.
         * @method foodEaten
         */ 
-        me.foodEaten = function() {
+        me.foodEaten = function () {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
         };
@@ -977,7 +979,8 @@ SNAKE.Board = SNAKE.Board || (function() {
         * This method is called when the snake dies.
         * @method handleDeath
         */ 
-        me.handleDeath = function() {
+        me.handleDeath = function () {
+            document.getElementById("sbTryAgainMessage").innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: " + mySnake.snakeLength + "<p></p>";
             var index = Math.max(getNextHighestZIndex( mySnake.snakeBody), getNextHighestZIndex( {tmp:{elm:myFood.getFoodElement()}} ));
             elmContainer.removeChild(elmTryAgain);
             elmContainer.appendChild(elmTryAgain);
