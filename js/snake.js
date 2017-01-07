@@ -37,6 +37,14 @@ function changeMode(button, color) {
             if (color == "red") snakeSpeed = 45, growthIncr = 10;//fast
             document.getElementById(button).style.color = "black";
             document.getElementById(button).style.background = color;
+            document.getElementById("tryAgainButton").style.background = color;
+            document.getElementById("welcomeButton").style.background = color;
+            
+            var elements = document.getElementsByClassName("snake-food-block"), i, len;
+
+            for (i = 0, len = elements.length; i < len; i++) {
+                elements[i].style.border = "2px solid " + color;
+            }
         }
         else {
             document.getElementById(buttonList[x]).style.color = "white";
@@ -682,9 +690,11 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (config.fullScreen) {
                 fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>Use the <font color='#ffffff'><strong>arrow keys</strong></font> or <font color='#ffffff'><strong>WASD</strong></font> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
-            welcomeStart.appendChild( document.createTextNode("Play Game"));
+            welcomeStart.id = "welcomeButton"
+            welcomeStart.innerHTML ="<strong>PLAY</strong>"
+            //welcomeStart.appendChild( document.createTextNode("PLAY"));
             
             var loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
@@ -714,12 +724,13 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.className = "snake-try-again-dialog";
             
             var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :).<p></p>";
+            tryAgainTxt.innerHTML = "<font size=20px><strong>JAVASCRIPT SNAKE</strong></font><p></p>You died <font color='#ffffff'><strong>:)</strong></font><p></p>";
             var tryAgainStart = document.createElement("button");
-            tryAgainStart.appendChild( document.createTextNode("Play Again?"));
+            tryAgainStart.id = "tryAgainButton";
+            tryAgainStart.innerHTML = "<strong>PLAY AGAIN</strong>"
             
             var reloadGame = function() {
-                tmpElm.style.display = "none";
+                tmpElm.style.display = "none"; 
                 me.resetBoard();
                 me.setBoardState(1);
                 me.getBoardContainer().focus();

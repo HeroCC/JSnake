@@ -35,10 +35,51 @@ body {
 #button3:hover, #button3:focus {
     background: #b200ff;
 }
+#tryAgainButton{
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+    padding: 2px 3%;
+    background: yellow;
+    border: 0px solid black;
+    white-space: nowrap;
+    position: absolute;
+    left: 45%;
+    top: 100%;
 
+}
+#tryAgainButton:hover{
+    transition: all 0.2s ease 0s;
+    max-width: 100%;
+    padding: 2px 48%;
+    background: yellow;
+    border: 0px solid black;
+    white-space: nowrap;
+    position:absolute; left:0%; top:100%;
+}
+#welcomeButton{
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+    padding: 2px 5%;
+    background: yellow;
+    border: 0px solid black;
+    white-space: nowrap;
+    position: absolute;
+    left: 45%;
+    top: 100%;
+}
+
+#welcomeButton:hover{
+    transition: all 0.2s ease 0s;
+    max-width: 100%;
+    padding: 2px 49.99%;
+    background: yellow;
+    border: 0px solid black;
+    white-space: nowrap;
+    position:absolute; left:0%; top:100%;
+}
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: #FCFC54; 
+  color: #0026ff; 
 }
 
 a.snake-link:hover {
@@ -127,7 +168,7 @@ a.snake-link:hover {
 }
             
 .snake-welcome-dialog {
-    padding: 8px;
+    padding: 0px;
     margin: 0px;
     background-color: #000000;
     color: #ffffff;
@@ -135,9 +176,10 @@ a.snake-link:hover {
     font-size: 14px;
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 300px;
-    /*height: 150px;*/
+    left: 178px;
+    right: 40px;
+    width: initial;
+    height: 100px;
     margin-top: -100px;
     margin-left: -158px;
     text-align: center;
@@ -145,7 +187,7 @@ a.snake-link:hover {
 }
 
 .snake-try-again-dialog {
-    padding: 8px;
+    padding: 0px;
     margin: 0px;
     background-color: #000000;
     color: #ffffff;
@@ -153,10 +195,11 @@ a.snake-link:hover {
     font-size: 14px;
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 300px;
+    left: 178px;
+    right: 40px;
+    width: initial;
     height: 100px;
-    margin-top: -75px;
+    margin-top: -100px;
     margin-left: -158px;
     text-align: center;
     display: none;
