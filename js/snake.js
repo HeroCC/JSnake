@@ -9,7 +9,7 @@ var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
 var deathlength = 1;
-
+var currentColor = "yellow";
 
 function changeSnakeColor(color) {
     snake_color = " snake-" + color + "-alive";
@@ -31,12 +31,13 @@ function changeMode(button, color) {
     for (var x = 0; x < buttonList.length; x++) {
         
         if (buttonList[x] == button) {
+            
             changeSnakeColor(color)
             if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100;//insane
             if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100;//long
             if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
             if (color == "red") snakeSpeed = 45, growthIncr = 10;//fast
-            document.getElementById(button).style.color = "black";
+            this.currentColor = color;
             document.getElementById(button).style.textShadow = "0px 0px black";
             
             var titles = document.getElementsByClassName("JSSTitle"), i, len;
@@ -47,7 +48,7 @@ function changeMode(button, color) {
             document.getElementById(button).style.background = color;
             document.getElementById("tryAgainButton").style.background = color;
             document.getElementById("welcomeButton").style.background = color;
-            
+
             var elements = document.getElementsByClassName("snake-food-block"), i, len;
 
             for (i = 0, len = elements.length; i < len; i++) {
@@ -55,8 +56,7 @@ function changeMode(button, color) {
             }
         }
         else {
-            document.getElementById(buttonList[x]).style.color = "black";
-            document.getElementById(buttonList[x]).style.textShadow = "0px 0px 20px " + color;
+            document.getElementById(buttonList[x]).style.textShadow = "0px 20px 0px black";
             document.getElementById(buttonList[x]).style.background = "";
         }
     }
@@ -682,6 +682,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmWelcome.style.zIndex = 1000;
             changeMode("button0", "yellow");
+            
         }
         function maxBoardWidth() {
             return MAX_BOARD_COLS * me.getBlockWidth();   
@@ -725,6 +726,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             tmpElm.appendChild(welcomeTxt);
             tmpElm.appendChild(welcomeStart);
+            
             return tmpElm;
         }
         
@@ -735,7 +737,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             var tryAgainTxt = document.createElement("div");
             tryAgainTxt.id = "sbTryAgainMessage";
-            tryAgainTxt.innerHTML = "<div><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: <div class='JSSTitle'>" + score + "</div><p></p>";
+            tryAgainTxt.innerHTML = "<div class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: <div class='JSSTitle'>" + score + "</div><p></p>";
             
             var tryAgainStart = document.createElement("button");
             tryAgainStart.id = "tryAgainButton";
@@ -993,7 +995,11 @@ SNAKE.Board = SNAKE.Board || (function() {
         */ 
         me.handleDeath = function () {
             document.getElementById("sbTryAgainMessage").innerHTML = "<div><div class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div></div><p></p>You died :) Score: <font size='3px'><strong>" + mySnake.snakeLength + "</strong></font><p></p>";
-            
+            var titles = document.getElementsByClassName("JSSTitle"), i, len;
+
+            for (i = 0, len = titles.length; i < len; i++) {
+                titles[i].style.color = currentColor;
+            }
             var index = Math.max(getNextHighestZIndex(mySnake.snakeBody), getNextHighestZIndex({ tmp: { elm: myFood.getFoodElement() } }));
             elmContainer.removeChild(elmTryAgain);
             elmContainer.appendChild(elmTryAgain);

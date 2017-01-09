@@ -10,29 +10,23 @@ body {
 
 .JSSTitle{
     transition: all 1s ease 0s;
-    color: white;
 }
-/*#JSSWelcomeTitle{
-    position: absolute;
-    left: -555px;
-    transition: all 1s ease 0s;
-    color: white;
-}*/
+
 .mode-button {
     border: hidden;
     background: grey;
     display: inline-block;
     cursor: pointer;
-    color: white;
+    color: black;
     font-family: Arial;
     float: left;
     font-size: 14px;
-    padding: 2px 12.43%;
-    text-align: left;
+    padding: 2px 12.5%;
     width: 10px;
     text-decoration: none;
-    transition: all .5s ease 0s;
+    transition: all .3s ease 0s;
 }
+.mode-button:focus{ outline: none; }
 #game-area:focus { outline: none; }
 #button0:hover, #button0:focus {
     background: yellow;
@@ -62,7 +56,7 @@ body {
     transition: all 0.2s ease 0s;
     max-width: 150%;
     padding: 2px 48%;
-    padding-right: 47%;
+    padding-right: 46%;
     background: yellow;
     border: 0px solid black;
     white-space: nowrap;
@@ -84,7 +78,7 @@ body {
     transition: all 0.2s ease 0s;
     max-width: 150%;
     padding: 2px 49.99%;
-    padding-right: 47%;
+    padding-right: 48%;
     background: yellow;
     border: 0px solid black;
     white-space: nowrap;
@@ -126,7 +120,7 @@ a.snake-link:hover {
     margin: 0px;
 }
 .snake-snakebody-block {
-    
+    transition: background .5s ease 0s;
     margin: 0px;
     padding: 0px;
     background-color: #ff0000;
