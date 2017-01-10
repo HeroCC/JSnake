@@ -8,7 +8,6 @@ var SNAKE = SNAKE || {};
 var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
-var deathlength = 1;
 var currentColor = "yellow";
 
 function changeSnakeColor(color) {
