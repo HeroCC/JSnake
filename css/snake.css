@@ -146,7 +146,7 @@ a.snake-link:hover {
 }
 
 .snake-snakebody-dead {
-   background-image: url('./images/deadblock.png');
+   background-image: url('./images/snakeblock_dead.png');
 }
 
 .snake-food-block {

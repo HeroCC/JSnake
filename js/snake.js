@@ -16,7 +16,8 @@ function changeSnakeColor(color) {
     var body = document.getElementsByClassName("snake-snakebody-block");
     for (var i = 0; i < body.length; i++) {
         if (body[i].className.search("dead") == -1) {
-            body[i].className = " snake-snakebody-block" + snake_color;
+            //body[i].className([1])
+            body[i].className = "snake-snakebody-block" + snake_color;
         }
     }
 }
@@ -194,7 +195,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.snakeHead = me.snakeBody["b0"];
         me.snakeTail = me.snakeBody["b0"];
         me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
-        me.snakeHead.elm.className += snake_color;
+        //me.snakeHead.elm.className += snake_color;
         
         // ----- private methods -----
         
@@ -356,7 +357,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 me.snakeBody[index] = blocks[ii];
                 me.snakeBody[index].prev = prevNode;
                 me.snakeBody[index].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-                me.snakeBody[index].elm.className += snake_color;
+                //me.snakeBody[index].elm.className += snake_color;
                 prevNode.next = me.snakeBody[index];
                 prevNode = me.snakeBody[index];
             }
@@ -415,12 +416,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 blocks[ii].elm.style.left = "-1000px";
                 blocks[ii].elm.style.top = "-1000px";
                 blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-                blocks[ii].elm.className += snake_color;
+                //blocks[ii].elm.className += snake_color;
             }
             
             blockPool.concat(blocks);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-            me.snakeHead.elm.className += snake_color;
+            //me.snakeHead.elm.className += snake_color;
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
             me.snakeHead.xPos = me.snakeHead.row * playingBoard.getBlockWidth();
