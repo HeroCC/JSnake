@@ -44,7 +44,7 @@ function changeMode(button, color) {
             if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
             if (color == "red") snakeSpeed = 40, growthIncr = 10;//fast
             if (color == "blue") {
-                snakeSpeed = 50;
+                snakeSpeed = 60;
                 growthIncr = 10;
             }//obstacle
             this.currentColor = color;
@@ -1088,7 +1088,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 for (i = 0; i < numObst; i++) {
                     myObstacle.randomlyPlaceObstacle();
                 }
-                snakeSpeed -= 0.2;
+                snakeSpeed -= 0.3;
             }
             
         };
@@ -1104,6 +1104,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             for (i = 0, len = titles.length; i < len; i++) {
                 titles[i].style.color = currentColor;
             }
+            if (currentColor === "blue") snakeSpeed = 60;
             var index = Math.max(getNextHighestZIndex(mySnake.snakeBody), getNextHighestZIndex({ tmp: { elm: myFood.getFoodElement() } }));
             elmContainer.removeChild(elmTryAgain);
             elmContainer.appendChild(elmTryAgain);
