@@ -11,6 +11,8 @@ var snakeSpeed = 75,
 var currentColor = "yellow";
 
 function changeSnakeColor(color) {
+    if (color == "#3ece01") color = "green";
+    if (color == "#b200ff") color = "purple";
     snake_color = " snake-" + color + "-alive";
     
     var body = document.getElementsByClassName("snake-snakebody-block");
@@ -21,22 +23,30 @@ function changeSnakeColor(color) {
         }
     }
 }
-function chngVar(newSpeed, newGrowth) {
-    snakeSpeed = newSpeed;
-    growthIncr = newGrowth; 
-}
 
+function removeObst() {
+    var obst = document.getElementsByClassName('snake-obstacle');
+    while (obst[0]) {
+        obst[0].parentNode.removeChild(obst[0]);
+    }
+}
 function changeMode(button, color) {
-    buttonList = ["button0", "button1", "button2", "button3"]
+    buttonList = ["button0", "button1", "button2", "button3", "button4"]
     for (var x = 0; x < buttonList.length; x++) {
         
         if (buttonList[x] == button) {
-            
+            if (currentColor === "blue" && color !== "blue") {
+                removeObst();
+            }
             changeSnakeColor(color)
             if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100;//insane
             if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100;//long
             if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
-            if (color == "red") snakeSpeed = 45, growthIncr = 10;//fast
+            if (color == "red") snakeSpeed = 40, growthIncr = 10;//fast
+            if (color == "blue") {
+                snakeSpeed = 50;
+                growthIncr = 10;
+            }//obstacle
             this.currentColor = color;
             document.getElementById(button).style.textShadow = "0px 0px black";
             
@@ -336,6 +346,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
                 setTimeout(function(){me.go();}, snakeSpeed);
+            } else if (grid[newHead.row][newHead.col] === playingBoard.getGridObstValue()) {
+                me.handleDeath();
             }
         };
         
@@ -415,12 +427,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             for (var ii = 0; ii < blocks.length; ii++) {
                 blocks[ii].elm.style.left = "-1000px";
                 blocks[ii].elm.style.top = "-1000px";
-                blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
-                //blocks[ii].elm.className += snake_color;
+                blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/, '')
+
             }
             
             blockPool.concat(blocks);
-            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
+            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/, '')
+            changeSnakeColor(currentColor);
             //me.snakeHead.elm.className += snake_color;
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
@@ -543,6 +556,80 @@ SNAKE.Food = SNAKE.Food || (function() {
     };
 })();
 
+SNAKE.Obstacle = SNAKE.Obstacle || (function () {
+
+    // -------------------------------------------------------------------------
+    // Private static variables and methods
+    // -------------------------------------------------------------------------
+
+    var instanceNumber = 0;
+
+    function getRandomPosition(x, y) {
+        return Math.floor(Math.random() * (y + 1 - x)) + x;
+    }
+
+    // -------------------------------------------------------------------------
+    // Contructor + public and private definitions
+    // -------------------------------------------------------------------------
+
+    /*
+        config options:
+            playingBoard - the SnakeBoard that this object belongs too.
+    */
+    return function (config) {
+
+        if (!config || !config.playingBoard) { return; }
+
+        // ----- private variables -----
+
+        var me = this;
+        var playingBoard = config.playingBoard;
+        var fRow, fColumn;
+        var myId = instanceNumber++;
+        // ----- public methods -----
+
+
+        /**
+        * Randomly places the obstacle onto an available location on the playing board.
+        * @method randomlyPlaceFood
+        */
+        me.randomlyPlaceObstacle = function () {
+            var elmObst = document.createElement("div");
+            elmObst.setAttribute("class", "snake-obstacle");
+            //elmFood.className = "snake-food-block";
+            elmObst.style.width = playingBoard.getBlockWidth() + "px";
+            elmObst.style.height = playingBoard.getBlockHeight() + "px";
+            elmObst.style.left = "-1000px";
+            elmObst.style.top = "-1000px";
+            playingBoard.getBoardContainer().appendChild(elmObst);
+            var row = 0, col = 0, numTries = 0;
+
+            var maxRows = playingBoard.grid.length - 1;
+            var maxCols = playingBoard.grid[0].length - 1;
+
+            while (playingBoard.grid[row][col] !== 0) {
+                row = getRandomPosition(1, maxRows);
+                col = getRandomPosition(1, maxCols);
+
+                // in some cases there may not be any room to put food anywhere
+                // instead of freezing, exit out
+                numTries++;
+                if (numTries > 20000) {
+                    row = -1;
+                    col = -1;
+                    break;
+                }
+            }
+
+            playingBoard.grid[row][col] = playingBoard.getGridObstValue();
+            fRow = row;
+            fColumn = col;
+            elmObst.style.top = row * playingBoard.getBlockHeight() + "px";
+            elmObst.style.left = col * playingBoard.getBlockWidth() + "px";
+        };
+    };
+})();
+
 /**
 * This class manages playing board for the game.
 * @class Board
@@ -620,6 +707,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             blockWidth = 20,
             blockHeight = 20,
             GRID_FOOD_VALUE = -1, // the value of a spot on the board that represents snake food, MUST BE NEGATIVE
+            GRID_OBST_VALUE = -2,
             myFood,
             mySnake,
             boardState = 1, // 0: in active; 1: awaiting game start; 2: playing game
@@ -678,8 +766,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmTryAgain);
             
             mySnake = new SNAKE.Snake({playingBoard:me,startRow:2,startCol:2});
-            myFood = new SNAKE.Food({playingBoard: me});
-            
+            myFood = new SNAKE.Food({ playingBoard: me });
+            myObstacle = new SNAKE.Obstacle({ playingBoard: me });
+            //myObstacle
             elmWelcome.style.zIndex = 1000;
             changeMode("button0", "yellow");
             
@@ -792,6 +881,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             mySnake.reset();
             elmLengthPanel.innerHTML = "Length: 1";
             me.setupPlayingField();
+            removeObst();
         };
         /**
         * Gets the current state of the playing board. There are 3 states: 0 - Welcome or Try Again dialog is present. 1 - User has pressed "Start Game" on the Welcome or Try Again dialog but has not pressed an arrow key to move the snake. 2 - The game is in progress and the snake is moving.
@@ -815,6 +905,12 @@ SNAKE.Board = SNAKE.Board || (function() {
         */  
         me.getGridFoodValue = function() {
             return GRID_FOOD_VALUE;
+        };
+
+
+
+        me.getGridObstValue = function () {
+            return GRID_OBST_VALUE;
         };
         /**
         * @method getPlayingFieldElement
@@ -987,6 +1083,14 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.foodEaten = function () {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
+            if (currentColor === "blue") {
+                var numObst = 2;
+                for (i = 0; i < numObst; i++) {
+                    myObstacle.randomlyPlaceObstacle();
+                }
+                snakeSpeed -= 0.2;
+            }
+            
         };
         
         /**
