@@ -38,15 +38,13 @@ function changeMode(button, color) {
             if (currentColor === "blue" && color !== "blue") {
                 removeObst();
             }
+            title_icon = document.getElementById("title_icon")
             changeSnakeColor(color)
-            if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100;//insane
-            if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100;//long
-            if (color == "yellow") snakeSpeed = 75, growthIncr = 5;//regular
-            if (color == "red") snakeSpeed = 40, growthIncr = 10;//fast
-            if (color == "blue") {
-                snakeSpeed = 60;
-                growthIncr = 10;
-            }//obstacle
+            if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_purple.png");//insane
+            if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_green.png");//long
+            if (color == "yellow") snakeSpeed = 75, growthIncr = 5, title_icon.setAttribute('href', "css/images/snakeblock.png");//regular
+            if (color == "red") snakeSpeed = 40, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_red.png");//fast
+            if (color == "blue") snakeSpeed = 60, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_blue.png");//obstacle
             this.currentColor = color;
             document.getElementById(button).style.textShadow = "0px 0px black";
             
@@ -1084,7 +1082,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
             if (currentColor === "blue") {
-                var numObst = 2;
+                var numObst = 3;
                 for (i = 0; i < numObst; i++) {
                     myObstacle.randomlyPlaceObstacle();
                 }
