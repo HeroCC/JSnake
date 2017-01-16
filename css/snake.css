@@ -51,6 +51,9 @@ body {
 #button4:hover, #button4:focus {
     background: blue;
 }
+#button5:hover, #button5:focus {
+    background: orangered;
+}
 #tryAgainButton{
     cursor: pointer;
     transition: all 1s ease 0s;
@@ -155,7 +158,9 @@ a.snake-link:hover {
 .snake-red-alive {
    background-image: url('./images/snakeblock_red.png');
 }
-
+.snake-orangered-alive {
+   background-image: url('./images/snakeblock_orangered.png');
+}
 .snake-snakebody-dead {
    background-image: url('./images/snakeblock_dead.png');
 }
