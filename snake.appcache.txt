@@ -1,0 +1,12 @@
+CACHE MANIFEST
+index.html
+googleca3b6b8a44424a2e.html
+css/snake.css
+images/snakeblock.png
+images/snakeblock_blue.png
+images/snakeblock_dead.png
+images/snakeblock_green.png
+images/snakeblock_orangered.png
+images/snakeblock_purple.png
+images/snakeblock_red.png
+js/snake.js
