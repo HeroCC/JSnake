@@ -9,19 +9,30 @@ var snake_color = " snake-yellow-alive";
 var snakeSpeed = 75,
     growthIncr = 5;
 var currentColor = "yellow";
-
+var isS2Dead = false,
+    isS1Dead = false;
+var winner = 0;
 function changeSnakeColor(color) {
     if (color == "#3ece01") color = "green";
     if (color == "#b200ff") color = "purple";
-    snake_color = " snake-" + color + "-alive";
+    
     
     var body = document.getElementsByClassName("snake-snakebody-block");
     for (var i = 0; i < body.length; i++) {
-        if (body[i].className.search("dead") == -1) {
-            //body[i].className([1])
-            body[i].className = "snake-snakebody-block" + snake_color;
+    
+        if (body[i].className.search("S2") > -1) {
+            var S2 = " S2";
+            snake_color = " snake-lightblue-alive";
+            console.log("lb");
+        } else {
+            var S2 = " S1";
+            snake_color = " snake-" + color + "-alive";
+            console.log("or")
         }
+        //body[i].className([1])
+        body[i].className = "snake-snakebody-block" + snake_color + S2;
     }
+    
 }
 
 function removeObst() {
@@ -32,36 +43,46 @@ function removeObst() {
 }
 function changeMode(button, color) {
     buttonList = ["button0", "button1", "button2", "button3", "button4", "button5"]
+    if (currentColor === "blue" && color !== "blue") {
+        removeObst();
+    }
+    if (currentColor === "orangered" && color !== "orangered") {
+        //delete second snake & set rules
+    }
+    title_icon = document.getElementById("title_icon")
+    changeSnakeColor(color)
+    if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_purple.png");//insane
+    if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_green.png");//long
+    if (color == "yellow") snakeSpeed = 75, growthIncr = 5, title_icon.setAttribute('href', "css/images/snakeblock.png");//regular
+    if (color == "red") snakeSpeed = 40, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_red.png");//fast
+    if (color == "blue") snakeSpeed = 60, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_blue.png");//obstacle
+    if (color == "orangered") snakeSpeed = 75, growthIncr = 5, title_icon.setAttribute('href', "css/images/snakeblock_orangered.png");//2play
+    if (color === "orangered") {
+        var Snake2_body = document.getElementsByClassName("S2"), i, len;
+        for (i = 0, len = Snake2_body.length; i < len; i++) {
+            Snake2_body[i].style.zIndex = "1";
+        }
+    }
+    else {
+        var Snake2_body = document.getElementsByClassName("S2"), i, len;
+        for (i = 0, len = Snake2_body.length; i < len; i++) {
+            Snake2_body[i].style.zIndex = "-1";
+        }
+    }
     for (var x = 0; x < buttonList.length; x++) {
         
         if (buttonList[x] == button) {
-            if (currentColor === "blue" && color !== "blue") {
-                removeObst();
-            }
-            if (currentColor === "orangered" && color !== "orangered") {
-                //delete second snake & set rules
-            }
-            title_icon = document.getElementById("title_icon")
-            changeSnakeColor(color)
-            if (color == "purple") color = "#b200ff", snakeSpeed = 45, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_purple.png");//insane
-            if (color == "green") color = "#3ece01", snakeSpeed = 75, growthIncr = 100, title_icon.setAttribute('href', "css/images/snakeblock_green.png");//long
-            if (color == "yellow") snakeSpeed = 75, growthIncr = 5, title_icon.setAttribute('href', "css/images/snakeblock.png");//regular
-            if (color == "red") snakeSpeed = 40, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_red.png");//fast
-            if (color == "blue") snakeSpeed = 60, growthIncr = 10, title_icon.setAttribute('href', "css/images/snakeblock_blue.png");//obstacle
-            if (color == "orangered") snakeSpeed = 75, growthIncr = 5, title_icon.setAttribute('href', "css/images/snakeblock_orangered.png");//obstacle
-            if (currentColor !== "orangered" && color === "orangered") {
-                
-            }
+            
             this.currentColor = color;
             
-            document.getElementById(button).style.textShadow = "0px 0px black";
+            document.getElementById(buttonList[x]).style.boxShadow = "inset 0px -20px 0px " + color;
             
             var titles = document.getElementsByClassName("JSSTitle"), i, len;
 
             for (i = 0, len = titles.length; i < len; i++) {
                 titles[i].style.color = color;
             }
-            document.getElementById(button).style.background = color;
+            //document.getElementById(button).style.background = color;
             document.getElementById("tryAgainButton").style.background = color;
             document.getElementById("welcomeButton").style.background = color;
 
@@ -72,7 +93,7 @@ function changeMode(button, color) {
             }
         }
         else {
-            document.getElementById(buttonList[x]).style.textShadow = "0px 20px 0px black";
+            document.getElementById(buttonList[x]).style.boxShadow = "inset 0px -4px 0px " + color;
             document.getElementById(buttonList[x]).style.background = "";
         }
     }
@@ -173,7 +194,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             startCol - The column the snake should start on.
     */
     
-    return function (config, snakeNumber) {
+    return function (config) {
     
         if (!config||!config.playingBoard) {return;}
     
@@ -183,7 +204,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
             moveQueue = [], // a queue that holds the next moves of the snake
-            currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
+            currentDirection = 4, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
@@ -265,35 +286,34 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
-            if (isDead || isPaused) {return;}
+            if (isS1Dead || isPaused) {return;}
             
             var snakeLength = me.snakeLength;
             var lastMove = moveQueue[0] || currentDirection;
-
             //console.log("lastmove="+lastMove);
             //console.log("dir="+keyNum);
             
             switch (keyNum) {
                 case 37:
-                case 65:
+                //case 65:
                     if ( lastMove !== 1 || snakeLength === 1 ) {
                         moveQueue.unshift(3); //SnakeDirection = 3;
                     }
                     break;    
                 case 38:
-                case 87:
+                //case 87:
                     if ( lastMove !== 2 || snakeLength === 1 ) {
                         moveQueue.unshift(0);//SnakeDirection = 0;
                     }
                     break;    
                 case 39:
-                case 68:
+                //case 68:
                     if ( lastMove !== 3 || snakeLength === 1 ) {
                         moveQueue.unshift(1); //SnakeDirection = 1;
                     }
                     break;    
                 case 40:
-                case 83:
+                //case 83:
                     if ( lastMove !== 0 || snakeLength === 1 ) {
                         moveQueue.unshift(2);//SnakeDirection = 2;
                     }
@@ -306,7 +326,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method go
         */
         me.go = function() {
-        
+            console.log("go");
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
                 myDirection = currentDirection,
@@ -316,7 +336,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 setTimeout(function(){me.go();}, snakeSpeed);
                 return;
             }
-        
+            if (isS2Dead) {
+                me.handleWin();
+                return
+            }
             me.snakeTail = newHead.prev;
             me.snakeHead = newHead;
         
@@ -324,38 +347,45 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             if ( grid[newHead.row] && grid[newHead.row][newHead.col] ) {
                 grid[newHead.row][newHead.col] = 0;
             }
-        
-            if (moveQueue.length){
+            if (moveQueue.length) {
+                console.log(moveQueue);
                 myDirection = currentDirection = moveQueue.pop();
             }
-        
-            newHead.col = oldHead.col + columnShift[myDirection];
-            newHead.row = oldHead.row + rowShift[myDirection];
-            newHead.xPos = oldHead.xPos + xPosShift[myDirection];
-            newHead.yPos = oldHead.yPos + yPosShift[myDirection];
-            
-            if ( !newHead.elmStyle ) {
-                newHead.elmStyle = newHead.elm.style;
-            }
-            
-            newHead.elmStyle.left = newHead.xPos + "px";
-            newHead.elmStyle.top = newHead.yPos + "px";
-
-            // check the new spot the snake moved into
-
-            if (grid[newHead.row][newHead.col] === 0) {
-                grid[newHead.row][newHead.col] = 1;
-                setTimeout(function () { me.go(); }, snakeSpeed);
+            if (currentDirection !== 4) {
                 
-            } else if (grid[newHead.row][newHead.col] > 0) {
-                me.handleDeath();
-            } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
-                grid[newHead.row][newHead.col] = 1;
-                me.eatFood();
-                setTimeout(function(){me.go();}, snakeSpeed);
-            } else if (grid[newHead.row][newHead.col] === playingBoard.getGridObstValue()) {
-                me.handleDeath();
+
+                newHead.col = oldHead.col + columnShift[myDirection];
+                newHead.row = oldHead.row + rowShift[myDirection];
+                newHead.xPos = oldHead.xPos + xPosShift[myDirection];
+                newHead.yPos = oldHead.yPos + yPosShift[myDirection];
+
+                if (!newHead.elmStyle) {
+                    newHead.elmStyle = newHead.elm.style;
+                }
+
+                newHead.elmStyle.left = newHead.xPos + "px";
+                newHead.elmStyle.top = newHead.yPos + "px";
+                // check the new spot the snake moved into
+                if (grid[newHead.row][newHead.col] === 0) {
+                    grid[newHead.row][newHead.col] = 1;
+                    setTimeout(function () { me.go(); }, snakeSpeed);
+
+                } else if (grid[newHead.row][newHead.col] > 0) {
+                    me.handleDeath();
+                } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
+                    grid[newHead.row][newHead.col] = 1;
+                    me.eatFood();
+                    setTimeout(function () { me.go(); }, snakeSpeed);
+                } else if (grid[newHead.row][newHead.col] === playingBoard.getGridObstValue()) {
+                    me.handleDeath();
+                }
+            } else {
+                
+                setTimeout(function () { me.go(); }, snakeSpeed);
             }
+            
+
+            
         };
         
         /**
@@ -396,17 +426,31 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
 
-            isDead = true;
+            isS1Dead = true;
             playingBoard.handleDeath();
             moveQueue.length = 0;
+            currentDirection = 4;
         };
 
+        me.handleWin = function () {
+            winner = 1;
+            me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
+            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/, '')
+            me.snakeHead.elm.className += " snake-snakebody-win";
+
+            isS1Dead = true;
+            playingBoard.handleDeath();
+            moveQueue.length = 0;
+            currentDirection = 4;
+            
+            console.log("S1 wins");
+        };
         /**
         * This method sets a flag that lets the snake be alive again.
         * @method rebirth
         */   
         me.rebirth = function() {
-            isDead = false;
+            isS1Dead = false;
         };
         
         /**
@@ -414,7 +458,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method reset
         */        
         me.reset = function() {
-            if (isDead === false) {return;}
+            if (isS1Dead === false) {return;}
             
             var blocks = [],
                 curNode = me.snakeHead.next,
@@ -432,11 +476,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeLength = 1;
             
             for (var ii = 0; ii < blocks.length; ii++) {
-                /*------ remove block instead of moving off screen--------
-                blocks[ii].elm.style.left = "-1000px";
-                blocks[ii].elm.style.top = "-1000px";
-                blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/, '')
-                */
                 blocks[ii].elm.remove();
             }
             
@@ -450,6 +489,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.yPos = me.snakeHead.col * playingBoard.getBlockHeight();
             me.snakeHead.elm.style.left = me.snakeHead.xPos + "px";
             me.snakeHead.elm.style.top = me.snakeHead.yPos + "px";
+            if (currentColor == "orangered") {
+                changeSnakeColor("orangered");
+            }
+            
         };
         
         // ---------------------------------------------------------------------
@@ -462,6 +505,369 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         xPosShift[2] = 0;
         xPosShift[3] = -1 * playingBoard.getBlockWidth();
         
+        yPosShift[0] = -1 * playingBoard.getBlockHeight();
+        yPosShift[1] = 0;
+        yPosShift[2] = playingBoard.getBlockHeight();
+        yPosShift[3] = 0;
+    };
+})();
+
+
+
+
+
+SNAKE.Snake2 = SNAKE.Snake2 || (function () {
+
+    // -------------------------------------------------------------------------
+    // Private static variables and methods
+    // -------------------------------------------------------------------------
+
+    var instanceNumber = 0;
+    var blockPool = [];
+    var SnakeBlock = function () {
+        this.elm = null;
+        this.elmStyle = null;
+        this.row = -1;
+        this.col = -1;
+        this.xPos = -1000;
+        this.yPos = -1000;
+        this.next = null;
+        this.prev = null;
+    };
+
+    // this function is adapted from the example at http://greengeckodesign.com/blog/2007/07/get-highest-z-index-in-javascript.html
+    function getNextHighestZIndex(myObj) {
+        var highestIndex = 0,
+            currentIndex = 0,
+            ii;
+        for (ii in myObj) {
+            if (myObj[ii].elm.currentStyle) {
+                currentIndex = parseFloat(myObj[ii].elm.style["z-index"], 10);
+            } else if (window.getComputedStyle) {
+                currentIndex = parseFloat(document.defaultView.getComputedStyle(myObj[ii].elm, null).getPropertyValue("z-index"), 10);
+            }
+            if (!isNaN(currentIndex) && currentIndex > highestIndex) {
+                highestIndex = currentIndex;
+            }
+        }
+        return (highestIndex + 1);
+    }
+
+    // -------------------------------------------------------------------------
+    // Contructor + public and private definitions
+    // -------------------------------------------------------------------------
+
+    /*
+        config options:
+            playingBoard - the SnakeBoard that this snake belongs too.
+            startRow - The row the snake should start on.
+            startCol - The column the snake should start on.
+    */
+
+    return function (config) {
+
+        if (!config || !config.playingBoard) { return; }
+        
+        // ----- private variables -----
+
+        var me = this,
+            playingBoard = config.playingBoard,
+            myId = instanceNumber++,
+            moveQueue2 = [], // a queue that holds the next moves of the snake
+            currentDirection = 4, // 0: up, 1: left, 2: down, 3: right
+            columnShift = [0, 1, 0, -1],
+            rowShift = [-1, 0, 1, 0],
+            xPosShift = [],
+            yPosShift = [],
+            isDead = false,
+            isPaused = false;
+
+        // ----- public variables -----
+
+        me.snakeBody2 = {};
+        me.snakeBody2["b0"] = new SnakeBlock(); // create snake head
+        me.snakeBody2["b0"].row = config.startRow2 || 10;
+        me.snakeBody2["b0"].col = config.startCol2 || 10;
+        me.snakeBody2["b0"].xPos = me.snakeBody2["b0"].row * playingBoard.getBlockWidth();
+        me.snakeBody2["b0"].yPos = me.snakeBody2["b0"].col * playingBoard.getBlockHeight();
+        me.snakeBody2["b0"].elm = createSnakeElement();
+        me.snakeBody2["b0"].elmStyle = me.snakeBody2["b0"].elm.style;
+        playingBoard.getBoardContainer().appendChild(me.snakeBody2["b0"].elm);
+        me.snakeBody2["b0"].elm.style.left = me.snakeBody2["b0"].xPos + "px";
+        me.snakeBody2["b0"].elm.style.top = me.snakeBody2["b0"].yPos + "px";
+        me.snakeBody2["b0"].next = me.snakeBody2["b0"];
+        me.snakeBody2["b0"].prev = me.snakeBody2["b0"];
+
+        me.snakeLength2 = 1;
+        me.snakeHead2 = me.snakeBody2["b0"];
+        me.snakeTail2 = me.snakeBody2["b0"];
+        me.snakeHead2.elm.className = me.snakeHead2.elm.className.replace(/\bsnake-snakebody-dead\b/, '');
+        // ----- private methods -----
+
+        function createSnakeElement() {
+            var tempNode = document.createElement("div");
+            tempNode.className = "snake-snakebody-block";
+            tempNode.className += " S2"
+            tempNode.style.left = "-1000px";
+            tempNode.style.top = "-1000px";
+            tempNode.style.width = playingBoard.getBlockWidth() + "px";
+            tempNode.style.height = playingBoard.getBlockHeight() + "px";
+
+            return tempNode;
+        }
+
+        function createBlocks(num) {
+            var tempBlock;
+            var tempNode = createSnakeElement();
+
+            for (var ii = 1; ii < num; ii++) {
+                tempBlock = new SnakeBlock();
+                tempBlock.elm = tempNode.cloneNode(true);
+                tempBlock.elmStyle = tempBlock.elm.style;
+                playingBoard.getBoardContainer().appendChild(tempBlock.elm);
+                blockPool[blockPool.length] = tempBlock;
+            }
+
+            tempBlock = new SnakeBlock();
+            tempBlock.elm = tempNode;
+            playingBoard.getBoardContainer().appendChild(tempBlock.elm);
+            blockPool[blockPool.length] = tempBlock;
+        }
+
+        // ----- public methods -----
+
+        me.setPaused = function (val) {
+            isPaused = val;
+        };
+        me.getPaused = function () {
+            return isPaused;
+        };
+
+        /**
+        * This method is called when a user presses a key. It logs arrow key presses in "moveQueue", which is used when the snake needs to make its next move.
+        * @method handleArrowKeys
+        * @param {Number} keyNum A number representing the key that was pressed.
+        */
+        /*
+            Handles what happens when an arrow key is pressed. 
+            Direction explained (0 = up, etc etc)
+                    0
+                  3   1
+                    2
+        */
+        me.handleArrowKeys2 = function (keyNum) {
+            if (isS2Dead || isPaused) { return; }
+
+            var snakeLength = me.snakeLength2;
+            var lastMove = moveQueue2[0] || currentDirection;
+
+            //console.log("lastmove="+lastMove);
+            //console.log("dir="+keyNum);
+
+            switch (keyNum) {
+                case 65:
+                    if (lastMove !== 1 || snakeLength === 1) {
+                        moveQueue2.unshift(3); //SnakeDirection = 3;
+                    }
+                    break;
+                case 87:
+                    if (lastMove !== 2 || snakeLength === 1) {
+                        moveQueue2.unshift(0);//SnakeDirection = 0;
+                    }
+                    break;
+                case 68:
+                    if (lastMove !== 3 || snakeLength === 1) {
+                        moveQueue2.unshift(1); //SnakeDirection = 1;
+                    }
+                    break;
+                case 83:
+                    if (lastMove !== 0 || snakeLength === 1) {
+                        moveQueue2.unshift(2);//SnakeDirection = 2;
+                    }
+                    break;
+            }
+        };
+
+        /**
+        * This method is executed for each move of the snake. It determines where the snake will go and what will happen to it. This method needs to run quickly.
+        * @method go
+        */
+        me.go2 = function () {
+            console.log("go2");
+            var oldHead = me.snakeHead2,
+                newHead = me.snakeTail2,
+                myDirection = currentDirection,
+                grid = playingBoard.grid; // cache grid for quicker lookup
+
+            if (isPaused === true) {
+                setTimeout(function () { me.go2(); }, snakeSpeed);
+                return;
+            }
+            if (isS1Dead) {
+                me.handleWin2();
+                return;
+            }
+            me.snakeTail2 = newHead.prev;
+            me.snakeHead2 = newHead;
+
+            // clear the old board position
+            if (grid[newHead.row] && grid[newHead.row][newHead.col]) {
+                grid[newHead.row][newHead.col] = 0;
+            }
+
+            if (moveQueue2.length) {
+                myDirection = currentDirection = moveQueue2.pop();
+            }
+            if (currentDirection !== 4) {
+                
+                newHead.col = oldHead.col + columnShift[myDirection];
+                newHead.row = oldHead.row + rowShift[myDirection];
+                newHead.xPos = oldHead.xPos + xPosShift[myDirection];
+                newHead.yPos = oldHead.yPos + yPosShift[myDirection];
+
+                if (!newHead.elmStyle) {
+                    newHead.elmStyle = newHead.elm.style;
+                }
+
+                newHead.elmStyle.left = newHead.xPos + "px";
+                newHead.elmStyle.top = newHead.yPos + "px";
+
+                // check the new spot the snake moved into
+                if (grid[newHead.row][newHead.col] === 0) {
+                    grid[newHead.row][newHead.col] = 1;
+                    setTimeout(function () { me.go2(); }, snakeSpeed);
+
+                } else if (grid[newHead.row][newHead.col] > 0) {
+                    me.handleDeath2();
+                } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
+                    grid[newHead.row][newHead.col] = 1;
+                    me.eatFood2();
+                    setTimeout(function () { me.go2(); }, snakeSpeed);
+                } else if (grid[newHead.row][newHead.col] === playingBoard.getGridObstValue()) {
+                    me.handleDeath2();
+                }
+            } else {
+                setTimeout(function () { me.go2(); }, snakeSpeed);
+            }
+            
+        };
+
+        /**
+        * This method is called when it is determined that the snake has eaten some food.
+        * @method eatFood
+        */
+        me.eatFood2 = function () {
+            if (blockPool.length <= growthIncr) {
+                createBlocks(growthIncr);//*2
+            }
+            var blocks = blockPool.splice(0, growthIncr);
+
+            var ii = blocks.length,
+                index,
+                prevNode = me.snakeTail2;
+            while (ii--) {
+                index = "b" + me.snakeLength2++;
+                me.snakeBody2[index] = blocks[ii];
+                me.snakeBody2[index].prev = prevNode;
+                me.snakeBody2[index].elm.className = me.snakeHead2.elm.className.replace(/\bsnake-snakebody-dead\b/, '')
+                //me.snakeBody[index].elm.className += snake_color;
+                prevNode.next = me.snakeBody2[index];
+                prevNode = me.snakeBody2[index];
+            }
+            me.snakeTail2 = me.snakeBody2[index];
+            me.snakeTail2.next = me.snakeHead2;
+            me.snakeHead2.prev = me.snakeTail2;
+
+            playingBoard.foodEaten();
+        };
+
+        /**
+        * This method handles what happens when the snake dies.
+        * @method handleDeath
+        */
+        me.handleDeath2 = function () {
+            me.snakeHead2.elm.style.zIndex = getNextHighestZIndex(me.snakeBody2);
+            me.snakeHead2.elm.className = me.snakeHead2.elm.className.replace(/\bsnake-snakebody-alive\b/, '')
+            me.snakeHead2.elm.className += " snake-snakebody-dead";
+            isS2Dead = true;
+            playingBoard.handleDeath();
+            moveQueue2.length = 0;
+            currentDirection = 4;
+        };
+
+        me.handleWin2 = function () {
+            winner = 2;
+            me.snakeHead2.elm.style.zIndex = getNextHighestZIndex(me.snakeBody2);
+            me.snakeHead2.elm.className = me.snakeHead2.elm.className.replace(/\bsnake-snakebody-alive\b/, '')
+            me.snakeHead2.elm.className += " snake-snakebody-win";
+            isS2Dead = true;
+            playingBoard.handleDeath();
+            moveQueue2.length = 0;
+            currentDirection = 4;
+            
+            console.log("S2 wins");
+        }
+
+        /**
+        * This method sets a flag that lets the snake be alive again.
+        * @method rebirth
+        */
+        me.rebirth2 = function () {
+            isS2Dead = false;
+        };
+
+        /**
+        * This method reset the snake so it is ready for a new game.
+        * @method reset
+        */
+        me.reset2 = function () {
+            if (isS2Dead === false) { return; }
+
+            var blocks = [],
+                curNode = me.snakeHead2.next,
+                nextNode;
+            while (curNode !== me.snakeHead2) {
+                nextNode = curNode.next;
+                curNode.prev = null;
+                curNode.next = null;
+                blocks.push(curNode);
+                curNode = nextNode;
+            }
+            me.snakeHead2.next = me.snakeHead2;
+            me.snakeHead2.prev = me.snakeHead2;
+            me.snakeTail2 = me.snakeHead2;
+            me.snakeLength2 = 1;
+
+            for (var ii = 0; ii < blocks.length; ii++) {
+                blocks[ii].elm.remove();
+            }
+
+            //blockPool.concat(blocks);
+            me.snakeHead2.elm.className = me.snakeHead2.elm.className.replace(/\bsnake-snakebody-dead\b/, '')
+            //changeSnakeColor(currentColor);
+            //me.snakeHead.elm.className += snake_color;
+            me.snakeHead2.row = config.startRow2 || 10;
+            me.snakeHead2.col = config.startCol2 || 10;
+            me.snakeHead2.xPos = me.snakeHead2.row * playingBoard.getBlockWidth();
+            me.snakeHead2.yPos = me.snakeHead2.col * playingBoard.getBlockHeight();
+            me.snakeHead2.elm.style.left = me.snakeHead2.xPos + "px";
+            me.snakeHead2.elm.style.top = me.snakeHead2.yPos + "px";
+            
+            if (currentColor == "orangered") {
+                changeSnakeColor("orangered");
+            }
+        };
+
+        // ---------------------------------------------------------------------
+        // Initialize
+        // ---------------------------------------------------------------------
+
+        //createBlocks(growthIncr);//*2
+        xPosShift[0] = 0;
+        xPosShift[1] = playingBoard.getBlockWidth();
+        xPosShift[2] = 0;
+        xPosShift[3] = -1 * playingBoard.getBlockWidth();
+
         yPosShift[0] = -1 * playingBoard.getBlockHeight();
         yPosShift[1] = 0;
         yPosShift[2] = playingBoard.getBlockHeight();
@@ -775,17 +1181,15 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmWelcome);
             elmContainer.appendChild(elmTryAgain);
             
-            mySnake = new SNAKE.Snake({ playingBoard: me, startRow: 2, startCol: 2 }, 1);
-            
+            mySnake = new SNAKE.Snake({ playingBoard: me, startRow: 2, startCol: 2 });
+            mySnake2 = new SNAKE.Snake2({ playingBoard: me, startRow2: 10, startCol2: 10 });
             myFood = new SNAKE.Food({ playingBoard: me });
+            
             myObstacle = new SNAKE.Obstacle({ playingBoard: me });
-            //myObstacle
+
             elmWelcome.style.zIndex = 1000;
             changeMode("button0", "yellow");
-            
-        }
-        function createSecondSnake() {
-            mySnake2 = new SNAKE.Snake({ playingBoard: me, startRow: 2, startCol: 10 }, 2);
+
         }
         function maxBoardWidth() {
             return MAX_BOARD_COLS * me.getBlockWidth();   
@@ -802,13 +1206,12 @@ SNAKE.Board = SNAKE.Board || (function() {
             var welcomeTxt = document.createElement("div");
             var fullScreenText = "";
             if (config.fullScreen) {
-                fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
+                //fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "<div id='JSSWelcomeTitle' class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>Use the <font color='#ffffff'><strong>arrow keys</strong></font> or <font color='#ffffff'><strong>WASD</strong></font> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "<div id='JSSWelcomeTitle' class='JSSTitle'><strong>JAVASCRIPT SNAKE</strong></div><p></p>Use the <font color='#ffffff'><strong>ARROW KEYS</strong></font> to play the game. " + fullScreenText + "<p></p>"; //or <font color='#ffffff'><strong>WASD</strong></font>
             var welcomeStart = document.createElement("button");
             welcomeStart.id = "welcomeButton"
             welcomeStart.innerHTML ="<strong>PLAY</strong>"
-            //welcomeStart.appendChild( document.createTextNode("PLAY"));
             
             var loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
@@ -840,7 +1243,6 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             var tryAgainTxt = document.createElement("div");
             tryAgainTxt.id = "sbTryAgainMessage";
-            tryAgainTxt.innerHTML = "<div class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div><p></p>You died <font color='#ffffff'><strong>:) </strong></font> Score: <div class='JSSTitle'>" + score + "</div><p></p>";
             
             var tryAgainStart = document.createElement("button");
             tryAgainStart.id = "tryAgainButton";
@@ -876,7 +1278,9 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.setPaused = function(val) {
             isPaused = val;
             mySnake.setPaused(val);
-            mySnake2.setPaused(val);
+            if (currentColor == "orangered") {
+                mySnake2.setPaused(val);
+            }
             if (isPaused) {
                 elmPauseScreen.style.display = "block";
             } else {
@@ -894,6 +1298,10 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.resetBoard = function() {
             SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
             mySnake.reset();
+            if (currentColor == "orangered") {
+                mySnake2.reset2();
+                
+            }
             elmLengthPanel.innerHTML = "Length: 1";
             me.setupPlayingField();
             removeObst();
@@ -969,6 +1377,31 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.getBlockHeight = function() {
             return blockHeight;  
         };
+
+        me.getColumns = function () {
+            var cWidth;
+            if (config.fullScreen === true) {
+                cWidth = getClientWidth() - 5;
+            } else {
+                cWidth = config.width;
+            }
+            var wEdgeSpace = me.getBlockWidth() * 2 + (cWidth % me.getBlockWidth());
+            var fWidth = Math.min(maxBoardWidth() - wEdgeSpace, cWidth - wEdgeSpace);
+            var numBoardCols = fWidth / me.getBlockWidth() + 2;
+            return numBoardCols;
+        }
+        me.getRows = function () {
+            var cHeight;
+            if (config.fullScreen === true) {
+                cHeight = getClientHeight() - 5;
+            } else {
+                cHeight = config.height;
+            }
+            var hEdgeSpace = me.getBlockHeight() * 3 + (cHeight % me.getBlockHeight());
+            var fHeight = Math.min(maxBoardHeight() - hEdgeSpace, cHeight - hEdgeSpace);
+            var numBoardRows = fHeight / me.getBlockHeight() + 2;
+            return numBoardRows;
+        }
         /**
         * Sets up the playing field.
         * @method setupPlayingField
@@ -1044,7 +1477,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             }
             
             myFood.randomlyPlaceFood();
-            
+            myFood.randomlyPlaceFood();
             // setup event listeners
             
             myKeyListener = function(evt) {
@@ -1053,10 +1486,10 @@ SNAKE.Board = SNAKE.Board || (function() {
 
                 if (me.getBoardState() === 1) {
                     if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68)) {return;} // if not an arrow key, leave
-                    
+                    if (currentColor !== "orangered" && !(keyNum >= 37 && keyNum <= 40)) { return };
                     // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
-                    
+                    //console.log("removed");
                     myKeyListener = function(evt) {
                         if (!evt) var evt = window.event;
                         var keyNum = (evt.which) ? evt.which : evt.keyCode;
@@ -1065,8 +1498,12 @@ SNAKE.Board = SNAKE.Board || (function() {
                         if (keyNum === 32) {
                             me.setPaused(!me.getPaused());
                         }
-                        
-                        mySnake.handleArrowKeys(keyNum);
+                        if (keyNum >= 37 && keyNum <= 40){
+                            mySnake.handleArrowKeys(keyNum);
+                        }
+                        else if(currentColor == "orangered"){
+                            mySnake2.handleArrowKeys2(keyNum);
+                        }
                         
                         evt.cancelBubble = true;
                         if (evt.stopPropagation) {evt.stopPropagation();}
@@ -1074,11 +1511,21 @@ SNAKE.Board = SNAKE.Board || (function() {
                         return false;
                     };
                     SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
-                    
+                    console.log("rebirth");
                     mySnake.rebirth();
-                    mySnake.handleArrowKeys(keyNum);
+                    mySnake2.rebirth2();
+                    if (keyNum >= 37 && keyNum <= 40) {
+                        mySnake.handleArrowKeys(keyNum);
+                    } else if (currentColor == "orangered") {
+                        mySnake2.handleArrowKeys2(keyNum);
+                    }
+                    
                     me.setBoardState(2); // start the game!
+                    if (currentColor == "orangered") {
+                        mySnake2.go2();
+                    }
                     mySnake.go();
+                    
                 }
                 
                 evt.cancelBubble = true;
@@ -1086,9 +1533,13 @@ SNAKE.Board = SNAKE.Board || (function() {
                 if (evt.preventDefault) {evt.preventDefault();}
                 return false;
             };
+            SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
+            SNAKE.addEventListener(elmContainer, "keydown", myKeyListener, false);
+            
             
             // Search for #listenerX to see where this is removed
-            SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
+            //SNAKE.addEventListener(elmContainer, "keydown", myKeyListener, false);
+            
         };
         
         /**
@@ -1096,7 +1547,10 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method foodEaten
         */ 
         me.foodEaten = function () {
-            elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
+            if (currentColor !== "orangered") {
+                elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
+            }
+            
             myFood.randomlyPlaceFood();
             if (currentColor === "blue") {
                 var numObst = 3;
@@ -1113,7 +1567,11 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method handleDeath
         */ 
         me.handleDeath = function () {
-            document.getElementById("sbTryAgainMessage").innerHTML = "<div><div class='JSSTitle'><font size=20px><strong>JAVASCRIPT SNAKE</strong></font></div></div><p></p>You died :) Score: <font size='3px'><strong>" + mySnake.snakeLength + "</strong></font><p></p>";
+            if (currentColor == "orangered") {
+                document.getElementById("sbTryAgainMessage").innerHTML = "<div class='JSSTitle'><strong>JAVASCRIPT SNAKE</strong></div>Winner: <font color='#ffffff'><strong>Player " + winner + "</strong></font>";
+            } else {
+                document.getElementById("sbTryAgainMessage").innerHTML = "<div class='JSSTitle'><strong>JAVASCRIPT SNAKE</strong></div>You died <font color='#ffffff'><strong>:) </strong> Score: <strong>" + mySnake.snakeLength + "</strong></font><p></p>";
+            }
             var titles = document.getElementsByClassName("JSSTitle"), i, len;
 
             for (i = 0, len = titles.length; i < len; i++) {
