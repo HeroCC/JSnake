@@ -1553,7 +1553,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             myFood.randomlyPlaceFood();
             if (currentColor === "blue") {
-                var numObst = 3;
+                var numObst = Math.floor((Math.random() * 3) + 1);
                 for (i = 0; i < numObst; i++) {
                     myObstacle.randomlyPlaceObstacle();
                 }
